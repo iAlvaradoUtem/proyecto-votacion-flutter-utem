@@ -8,9 +8,9 @@ Este proyecto consiste en una aplicacion movil para Android que permite a los us
 
 ## Capturas de Pantalla
 
-| Carga y Bienvenida | Pestaña 'Votar' | Detalle de Votacion |
+| Pantalla de Carga | Pantalla de Bienvenida | Lista con Encuestas |
 | :---: | :---: | :---: |
-| ![Pantalla de Carga](./docs/images/splash.png) | ![Pantalla de Bienvenida](./docs/images/bienvenida.png) | ![Lista para Votar](./docs/images/encuestas.png) |
+| ![Pantalla de Carga](./docs/images/splash.png) | ![Pantalla de Bienvenida](./docs/images/bienvenida.png) | ![Lista con Encuestas](./docs/images/encuestas.png) |
 | **Detalle para Votar** | **Recuento de Votos** | **Perfil de Usuario** |
 | ![Pantalla de Votacion](./docs/images/encuestas_votacion.png) | ![Recuento de Resultados](./docs/images/resultados_recuento.png) | ![Perfil de Usuario](./docs/images/perfil.png) |
 
