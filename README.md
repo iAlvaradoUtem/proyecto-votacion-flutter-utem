@@ -1,8 +1,18 @@
 # Proyecto Vota UTEM
 
-**Aplicacion movil de votaciones desarrollada en Flutter como parte de la asignatura Computacion Movil de la UTEM 2025/02.**
+**Aplicacion movil de votaciones desarrollada en Flutter como parte de la asignatura Computacion Movil de la UTEM.**
 
-Este proyecto consiste en una aplicacion movil para Android que permite a los usuarios autenticarse, visualizar una lista de encuestas disponibles, votar en ellas y consultar los resultados. La aplicacion consume los servicios expuestos por la API del profesor.
+Este proyecto consiste en una aplicacion movil para Android que permite a los usuarios autenticarse, visualizar una lista de encuestas disponibles, votar en ellas y consultar los resultados. La aplicacion consume los servicios expuestos por la API REST del profesor.
+
+---
+
+## Capturas de Pantalla
+
+| Carga y Bienvenida | Pestaña 'Votar' | Detalle de Votacion |
+| :---: | :---: | :---: |
+| ![Pantalla de Carga](./docs/images/splash.png) | ![Pantalla de Bienvenida](./docs/images/bienvenida.png) | ![Lista para Votar](./docs/images/encuestas.png) |
+| **Detalle para Votar** | **Recuento de Votos** | **Perfil de Usuario** |
+| ![Pantalla de Votacion](./docs/images/encuestas_votacion.png) | ![Recuento de Resultados](./docs/images/resultados_recuento.png) | ![Perfil de Usuario](./docs/images/perfil.png) |
 
 ---
 
@@ -13,7 +23,7 @@ Este proyecto consiste en una aplicacion movil para Android que permite a los us
 * **Flujo de Votacion:** Interfaz para seleccionar una opcion y registrar un voto.
 * **Consulta de Resultados:** Pantalla dedicada para visualizar los resultados de cada encuesta.
 * **Perfil de Usuario:** Muestra de datos del usuario (foto, nombre, correo) y boton de cierre de sesion.
-* **Historial de Votaciones (Solo Local):** Registro de los votos emitidos, guardados en el dispositivo del usuario.
+* **Historial de Votaciones Local:** Registro de los votos emitidos, guardados en el dispositivo del usuario.
 * **Interfaz Consistente:** Diseno unificado con una barra de navegacion superior e inferior personalizadas.
 * **Manejo de Estados:** La aplicacion gestiona visualmente los estados de carga, exito, error y datos vacios.
 
