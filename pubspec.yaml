@@ -1,0 +1,49 @@
+name: flutter_app_nueva
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.5.1
+  firebase_core: ^2.32.0
+  firebase_auth: ^4.20.0
+  google_sign_in: ^6.3.0
+  flutter_dotenv: ^5.1.0
+  dio: ^5.4.3+1
+  shared_preferences: ^2.2.3
+  infinite_scroll_pagination: ^4.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  mockito: ^5.4.4
+  build_runner: ^2.4.10
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.0
+
+flutter:
+  uses-material-design: true
+
+  # --- SECCIÓN AÑADIDA PARA DECLARAR ASSETS ---
+  # Esto le dice a Flutter que incluya la carpeta 'assets' y su contenido.
+  assets:
+    - assets/
+  # ---------------------------------------------
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icono.png"
+
+flutter_native_splash:
+  color: "#074250"
+  image: assets/icono.png
+  android: true
+  ios: true
