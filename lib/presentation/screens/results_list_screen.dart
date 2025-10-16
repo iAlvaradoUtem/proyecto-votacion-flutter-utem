@@ -5,11 +5,13 @@ import 'package:flutter_app_nueva/presentation/widgets/error_widget.dart';
 import 'package:flutter_app_nueva/presentation/widgets/loading_widget.dart';
 import 'package:flutter_app_nueva/presentation/widgets/poll_card.dart';
 
+// Lista de encuestas para ver resultados
 class ResultsListScreen extends ConsumerWidget {
   const ResultsListScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Usa los mismos providers que la pantalla de Votar
     final allEncuestasAsync = ref.watch(allEncuestasProvider);
     final filteredEncuestas = ref.watch(filteredEncuestasProvider);
 
@@ -19,7 +21,7 @@ class ResultsListScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(8.0),
           child: TextField(
             decoration: InputDecoration(
-              hintText: 'Buscar encuesta...',
+              hintText: 'Buscar resultados de encuesta...',
               prefixIcon: const Icon(Icons.search),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -41,8 +43,8 @@ class ResultsListScreen extends ConsumerWidget {
                 return Center(
                   child: Text(
                     ref.watch(searchQueryProvider).isEmpty
-                        ? 'No hay encuestas disponibles.'
-                        : 'No se encontraron resultados.',
+                        ? 'No hay encuestas disponibles'
+                        : 'No se encontraron resultados',
                   ),
                 );
               }
@@ -50,19 +52,17 @@ class ResultsListScreen extends ConsumerWidget {
                 itemCount: filteredEncuestas.length,
                 itemBuilder: (context, index) {
                   final encuesta = filteredEncuestas[index];
-                  // --- LÍNEA ACTUALIZADA ---
-                  // Le decimos a la tarjeta que estamos en modo 'resultados'.
+                  // Le indicamos a la tarjeta que esta en modo 'resultados'
                   return PollCard(
                     encuesta: encuesta,
                     mode: CardMode.results,
                   );
-                  // ------------------------
                 },
               );
             },
             loading: () => const LoadingWidget(),
             error: (error, stackTrace) => ErrorRetryWidget(
-              errorMessage: 'Error al cargar las encuestas.',
+              errorMessage: 'Error al cargar las encuestas',
               onRetry: () {
                 ref.invalidate(allEncuestasProvider);
               },

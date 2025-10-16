@@ -1,5 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_app_nueva/core/errors/exceptions.dart';
+import 'package:flutter_app_nueva/presentation/providers/auth_providers.dart';
 import 'package:flutter_app_nueva/presentation/providers/votacion_providers.dart';
 import 'package:flutter_app_nueva/presentation/widgets/error_widget.dart';
 import 'package:flutter_app_nueva/presentation/widgets/loading_widget.dart';
@@ -10,6 +13,25 @@ class VoteListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Escucha los cambios en el provider para reaccionar a errores de sesion
+    ref.listen(allEncuestasProvider, (_, state) {
+      if (state is AsyncError) {
+        final error = state.error;
+        if (error is DioException && error.error is SessionExpiredException) {
+          // Muestra la notificacion
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Tu sesion ha expirado. Por favor, inicia sesion de nuevo'),
+              backgroundColor: Colors.orange,
+              duration: Duration(seconds: 4),
+            ),
+          );
+          // Cierra la sesion del usuario
+          ref.read(authRepositoryProvider).signOut();
+        }
+      }
+    });
+
     final allEncuestasAsync = ref.watch(allEncuestasProvider);
     final filteredEncuestas = ref.watch(filteredEncuestasProvider);
 
@@ -19,7 +41,7 @@ class VoteListScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(8.0),
           child: TextField(
             decoration: InputDecoration(
-              hintText: 'Buscar encuesta...',
+              hintText: 'Buscar encuesta',
               prefixIcon: const Icon(Icons.search),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -33,40 +55,47 @@ class VoteListScreen extends ConsumerWidget {
             },
           ),
         ),
-        
         Expanded(
           child: allEncuestasAsync.when(
             data: (_) {
               if (filteredEncuestas.isEmpty) {
+                final searchQuery = ref.watch(searchQueryProvider);
+                // Muestra un mensaje diferente si la lista esta vacia
+                // o si la busqueda no arrojo resultados
                 return Center(
                   child: Text(
-                    ref.watch(searchQueryProvider).isEmpty
-                        ? 'No hay encuestas disponibles.'
-                        : 'No se encontraron resultados.',
+                    searchQuery.isEmpty
+                        ? 'No hay encuestas disponibles en este momento'
+                        : 'No se encontraron resultados para "$searchQuery"',
                   ),
                 );
               }
+              // ------------------------------------------
               return ListView.builder(
                 itemCount: filteredEncuestas.length,
                 itemBuilder: (context, index) {
                   final encuesta = filteredEncuestas[index];
-                  // --- LÍNEA ACTUALIZADA ---
-                  // Le decimos a la tarjeta que estamos en modo 'votar'.
                   return PollCard(
                     encuesta: encuesta,
                     mode: CardMode.vote,
                   );
-                  // ------------------------
                 },
               );
             },
             loading: () => const LoadingWidget(),
-            error: (error, stackTrace) => ErrorRetryWidget(
-              errorMessage: 'Error al cargar las encuestas.',
-              onRetry: () {
-                ref.invalidate(allEncuestasProvider);
-              },
-            ),
+            error: (error, stackTrace) {
+              if (error is DioException && error.error is SessionExpiredException) {
+                return const LoadingWidget();
+              }
+              // Para cualquier otro error, muestra el widget de reintentar
+              return ErrorRetryWidget(
+                errorMessage: 'Error al cargar las encuestas',
+                onRetry: () {
+                  ref.invalidate(allEncuestasProvider);
+                },
+              );
+              // ------------------------------------------
+            },
           ),
         ),
       ],

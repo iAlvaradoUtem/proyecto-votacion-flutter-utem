@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Muestra un mensaje de error y un boton para reintentar
 class ErrorRetryWidget extends StatelessWidget {
   final String errorMessage;
   final VoidCallback onRetry;
@@ -14,7 +15,6 @@ class ErrorRetryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        // Asegúrate de que el nombre del parámetro esté aquí
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(

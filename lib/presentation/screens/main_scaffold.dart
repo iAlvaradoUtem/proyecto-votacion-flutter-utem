@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_nueva/presentation/screens/profile_screen.dart';
 import 'package:flutter_app_nueva/presentation/screens/vote_list_screen.dart';
 import 'package:flutter_app_nueva/presentation/widgets/main_app_bar.dart';
+import 'package:flutter_app_nueva/presentation/screens/results_list_screen.dart';
 
-// Necesitaremos crear esta nueva pantalla en el siguiente paso.
-// De momento la importamos para que no dé error.
-import 'results_list_screen.dart'; 
-
+// Contiene la navegacion inferior de la app
 class MainScaffold extends StatefulWidget {
   const MainScaffold({super.key});
 
@@ -17,13 +15,14 @@ class MainScaffold extends StatefulWidget {
 class _MainScaffoldState extends State<MainScaffold> {
   int _selectedIndex = 0;
 
-  // Actualizamos la lista de pantallas para incluir la de resultados
+  // Lista de las pantallas que se mostraran en cada pestana
   static const List<Widget> _widgetOptions = <Widget>[
-    VoteListScreen(),      // Índice 0: Votar
-    ResultsListScreen(),   // Índice 1: Resultados
-    ProfileScreen(),       // Índice 2: Perfil
+    VoteListScreen(),
+    ResultsListScreen(),
+    ProfileScreen(),
   ];
 
+  // Se ejecuta cuando el usuario toca una pestana
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -33,12 +32,12 @@ class _MainScaffoldState extends State<MainScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // El AppBar se mantiene igual, se mostrará en todas las pestañas
       appBar: const MainAppBar(),
+      // Muestra la pantalla correspondiente al indice seleccionado
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      // --- BARRA DE NAVEGACIÓN INFERIOR ACTUALIZADA ---
+      // Barra de navegacion inferior
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
@@ -52,17 +51,14 @@ class _MainScaffoldState extends State<MainScaffold> {
         ),
         child: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
-            // Botón "Votar"
             BottomNavigationBarItem(
-              icon: Icon(Icons.how_to_vote), // Icono más representativo
+              icon: Icon(Icons.how_to_vote),
               label: 'Votar',
             ),
-            // Botón "Resultados"
             BottomNavigationBarItem(
               icon: Icon(Icons.bar_chart),
               label: 'Resultados',
             ),
-            // Botón "Perfil"
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: 'Perfil',
@@ -74,7 +70,6 @@ class _MainScaffoldState extends State<MainScaffold> {
           elevation: 0,
         ),
       ),
-      // ------------------------------------------
     );
   }
 }

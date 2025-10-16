@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
+  // Lista de widgets para las acciones como el boton de perfil
   final List<Widget>? actions;
 
   const MainAppBar({super.key, this.actions});
@@ -8,27 +10,23 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      // Usamos el color hexadecimal que nos diste
       backgroundColor: const Color(0xFF074250),
-      // El color de los iconos y el texto del AppBar será blanco
       foregroundColor: Colors.white,
+      automaticallyImplyLeading: false,
       title: Row(
         children: [
-          // Asegúrate de que tu icono esté en la carpeta 'assets'
           Image.asset(
-            'assets/icono.png', // Revisa que esta ruta sea correcta
-            height: 32, // Ajusta el tamaño como prefieras
+            'assets/icono.png',
+            height: 32,
           ),
           const SizedBox(width: 12),
           const Text('Vota UTEM'),
         ],
       ),
-      // Pasamos las acciones (como el botón de perfil) que cada pantalla necesite
       actions: actions,
     );
   }
 
-  // Esto es necesario para que Flutter sepa qué altura tiene nuestro AppBar
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

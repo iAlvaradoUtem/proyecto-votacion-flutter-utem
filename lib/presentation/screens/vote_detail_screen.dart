@@ -8,8 +8,8 @@ import 'package:flutter_app_nueva/presentation/providers/votacion_providers.dart
 import 'package:flutter_app_nueva/presentation/widgets/loading_widget.dart';
 import 'package:flutter_app_nueva/presentation/widgets/error_widget.dart';
 import 'package:flutter_app_nueva/presentation/widgets/main_app_bar.dart';
-// El import de poll_results_screen.dart ha sido eliminado.
 
+// Muestra el detalle de una encuesta para poder votar
 class VoteDetailScreen extends ConsumerStatefulWidget {
   final String pollToken;
   const VoteDetailScreen({super.key, required this.pollToken});
@@ -19,11 +19,14 @@ class VoteDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _VoteDetailScreenState extends ConsumerState<VoteDetailScreen> {
+  // Guarda la opcion que el usuario selecciona
   int? selectedOption;
+  // Controla si se esta enviando el voto
   bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
+    // Escucha el provider para obtener los detalles de la encuesta
     final pollDetailAsyncValue = ref.watch(pollDetailProvider(widget.pollToken));
 
     return Scaffold(
@@ -38,7 +41,7 @@ class _VoteDetailScreenState extends ConsumerState<VoteDetailScreen> {
                 children: [
                   Text(encuesta.name, style: Theme.of(context).textTheme.headlineMedium),
                   const SizedBox(height: 24),
-                  Text('Selecciona una opción:', style: Theme.of(context).textTheme.titleMedium),
+                  Text('Selecciona una opcion:', style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: 8),
                   Column(
                     children: encuesta.options.map((option) {
@@ -60,6 +63,7 @@ class _VoteDetailScreenState extends ConsumerState<VoteDetailScreen> {
                     child: isLoading
                         ? const Center(child: CircularProgressIndicator())
                         : ElevatedButton(
+                            // El boton esta deshabilitado si no se ha seleccionado nada
                             onPressed: selectedOption == null
                                 ? null
                                 : () async {
@@ -74,6 +78,7 @@ class _VoteDetailScreenState extends ConsumerState<VoteDetailScreen> {
                                       );
                                       await ref.read(votacionRepositoryProvider).registrarVoto(voto);
 
+                                      // Guarda el voto en el historial local del telefono
                                       final choiceName = encuesta.options.firstWhere((opt) => opt.selection == selectedOption!).choice;
                                       await LocalStorageService().saveVote(
                                         userId: user.uid,
@@ -82,17 +87,18 @@ class _VoteDetailScreenState extends ConsumerState<VoteDetailScreen> {
                                       );
 
                                       ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(content: Text('¡Voto registrado y guardado localmente!'), backgroundColor: Colors.green),
+                                        const SnackBar(content: Text('Voto registrado y guardado localmente'), backgroundColor: Colors.green),
                                       );
                                       
                                       ref.invalidate(pollResultsProvider(widget.pollToken));
                                       if(mounted) Navigator.pop(context);
 
                                     } on DioException catch (e) {
-                                      String errorMessage = 'Ocurrió un error inesperado.';
+                                      String errorMessage = 'Ocurrio un error inesperado';
+                                      // Maneja el error especifico de cuando ya se ha votado
                                       if (e.response?.statusCode == 500 &&
                                           e.response?.data.toString().contains('ya registra un voto') == true) {
-                                        errorMessage = 'Ya emitiste tu voto en esta encuesta.';
+                                        errorMessage = 'Ya emitiste tu voto en esta encuesta';
                                       }
                                       
                                       ScaffoldMessenger.of(context).showSnackBar(
@@ -118,7 +124,7 @@ class _VoteDetailScreenState extends ConsumerState<VoteDetailScreen> {
         },
         loading: () => const LoadingWidget(),
         error: (err, stack) => ErrorRetryWidget(
-          errorMessage: 'Error al cargar el detalle de la encuesta.',
+          errorMessage: 'Error al cargar el detalle de la encuesta',
           onRetry: () {
             ref.invalidate(pollDetailProvider(widget.pollToken));
           },

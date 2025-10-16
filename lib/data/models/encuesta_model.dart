@@ -1,9 +1,11 @@
+// Estructura de una sola opcion dentro de una encuesta
 class DetalleOpcion {
   final int selection;
   final String choice;
 
   DetalleOpcion({required this.selection, required this.choice});
 
+  // Crear un objeto DetalleOpcion a partir de un json
   factory DetalleOpcion.fromJson(Map<String, dynamic> json) {
     return DetalleOpcion(
       selection: json['selection'],
@@ -12,6 +14,7 @@ class DetalleOpcion {
   }
 }
 
+// Estructura de una encuesta completa
 class Encuesta {
   final String token;
   final String name;
@@ -27,6 +30,7 @@ class Encuesta {
     required this.options,
   });
 
+  // Crear un objeto 'Encuesta' a partir de un json que viene de la api
   factory Encuesta.fromJson(Map<String, dynamic> json) {
     var optionsList = json['options'] as List;
     List<DetalleOpcion> options =
@@ -36,7 +40,7 @@ class Encuesta {
       token: json['token'],
       name: json['name'],
       active: json['active'],
-      owner: json['owner'] ?? false,
+      owner: json['owner'] ?? false, // Si la api no envia 'owner', asumimos false
       options: options,
     );
   }

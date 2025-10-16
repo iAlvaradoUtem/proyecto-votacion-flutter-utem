@@ -3,17 +3,18 @@ import 'package:flutter_app_nueva/data/models/encuesta_model.dart';
 import 'package:flutter_app_nueva/presentation/screens/poll_results_screen.dart';
 import 'package:flutter_app_nueva/presentation/screens/vote_detail_screen.dart';
 
-// Definimos los dos posibles comportamientos de la tarjeta
+// Define los dos modos en que puede funcionar la tarjeta: para votar o para ver resultados
 enum CardMode { vote, results }
 
+// Widget reutilizable para mostrar una encuesta en una lista
 class PollCard extends StatelessWidget {
   final Encuesta encuesta;
-  final CardMode mode; // Añadimos el nuevo parámetro
+  final CardMode mode;
 
   const PollCard({
     super.key,
     required this.encuesta,
-    this.mode = CardMode.vote, // Por defecto, el modo es 'votar'
+    this.mode = CardMode.vote, // El modo por defecto es 'votar'
   });
 
   @override
@@ -28,10 +29,7 @@ class PollCard extends StatelessWidget {
           color: encuesta.active ? Colors.green : Colors.red,
         ),
         onTap: () {
-          // --- LÓGICA DE NAVEGACIÓN ACTUALIZADA ---
-          // Verificamos en qué modo está la tarjeta
           if (mode == CardMode.vote) {
-            // Si el modo es 'votar', navegamos a la pantalla de detalle para votar
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -39,7 +37,7 @@ class PollCard extends StatelessWidget {
               ),
             );
           } else {
-            // Si el modo es 'resultados', navegamos a la pantalla de resultados
+            // Si el modo es 'results', va a la pantalla de resultados
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -47,7 +45,6 @@ class PollCard extends StatelessWidget {
               ),
             );
           }
-          // ------------------------------------------
         },
       ),
     );

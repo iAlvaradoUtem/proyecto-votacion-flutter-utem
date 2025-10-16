@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_app_nueva/presentation/providers/votacion_providers.dart';
 import 'package:flutter_app_nueva/presentation/widgets/loading_widget.dart';
 import 'package:flutter_app_nueva/presentation/widgets/error_widget.dart';
+import 'package:flutter_app_nueva/presentation/widgets/main_app_bar.dart';
 
 class PollResultsScreen extends ConsumerWidget {
   final String pollToken;
@@ -12,7 +13,7 @@ class PollResultsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final resultsAsyncValue = ref.watch(pollResultsProvider(pollToken));
     return Scaffold(
-      appBar: AppBar(title: const Text('Resultados de la Votación')),
+      appBar: const MainAppBar(),
       body: resultsAsyncValue.when(
         data: (resultado) {
           return ListView(
@@ -33,15 +34,13 @@ class PollResultsScreen extends ConsumerWidget {
             ],
           );
         },
-        // --- CÓDIGO ACTUALIZADO ---
         loading: () => const LoadingWidget(),
         error: (err, stack) => ErrorRetryWidget(
-          errorMessage: 'Error al cargar los resultados.',
+          errorMessage: 'Error al cargar los resultados',
           onRetry: () {
             ref.invalidate(pollResultsProvider(pollToken));
           },
         ),
-        // -------------------------
       ),
     );
   }

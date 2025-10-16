@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Muestra un mensaje cuando no hay datos
 class EmptyDisplay extends StatelessWidget {
   final String message;
 

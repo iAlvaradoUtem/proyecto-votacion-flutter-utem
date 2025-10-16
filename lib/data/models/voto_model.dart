@@ -1,3 +1,4 @@
+// Estructura de un voto
 class Voto {
   final String pollToken;
   final int selection;
@@ -7,7 +8,7 @@ class Voto {
     required this.selection,
   });
 
-  // Esta función convierte nuestro objeto Voto a JSON para enviarlo a la API
+  // Convertir  Voto a un formato json, se envia a la api
   Map<String, dynamic> toJson() {
     return {
       'pollToken': pollToken,
