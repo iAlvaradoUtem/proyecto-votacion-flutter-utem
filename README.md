@@ -1,4 +1,4 @@
-# Proyecto Vota UTEM
+# 💻 Proyecto Vota UTEM
 
 **Aplicacion movil de votaciones desarrollada en Flutter como parte de la asignatura Computacion Movil de la UTEM.**
 
@@ -6,7 +6,7 @@ Este proyecto consiste en una aplicacion movil para Android que permite a los us
 
 ---
 
-## Capturas de Pantalla
+## 📸 Capturas de Pantalla
 
 | Pantalla de Carga | Pantalla de Bienvenida | Lista con Encuestas |
 | :---: | :---: | :---: |
@@ -16,7 +16,7 @@ Este proyecto consiste en una aplicacion movil para Android que permite a los us
 
 ---
 
-## Caracteristicas Implementadas
+## 📋 Caracteristicas Implementadas
 
 * **Autenticacion Segura:** Inicio de sesion con Google a traves de Firebase Authentication.
 * **Listado de Encuestas:** Visualizacion de encuestas con barra de busqueda en tiempo real.
@@ -29,7 +29,7 @@ Este proyecto consiste en una aplicacion movil para Android que permite a los us
 
 ---
 
-## Tecnologias y Arquitectura
+## ⚙️ Tecnologias y Arquitectura
 
 * **Framework:** Flutter
 * **Lenguaje:** Dart
@@ -42,7 +42,7 @@ Este proyecto consiste en una aplicacion movil para Android que permite a los us
 
 ---
 
-## Instrucciones de Instalacion y Uso
+## ✅ Instrucciones de Instalacion y Uso
 
 ### **Requisitos Previos**
 * Tener [Flutter SDK](https://docs.flutter.dev/get-started/install) instalado.
@@ -72,5 +72,5 @@ Este proyecto consiste en una aplicacion movil para Android que permite a los us
 
 ---
 
-## Informe Tecnico
+## 🚩 Informe Tecnico
 El informe tecnico que detalla las decisiones de arquitectura, el mapeo de modelos, el manejo de errores y las medidas de seguridad se encuentra en el archivo `INFORME_TECNICO.md`.
