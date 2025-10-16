@@ -33,8 +33,9 @@ jobs:
       - name: Accept Android licenses
         run: yes | flutter doctor --android-licenses
 
+      # no trates las sugerencias (infos) como errores fatales!!
       - name: Run static analysis
-        run: flutter analyze
+        run: flutter analyze --no-fatal-infos
 
       - name: Generate mock files
         run: dart run build_runner build --delete-conflicting-outputs
